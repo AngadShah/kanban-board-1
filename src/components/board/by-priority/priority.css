@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.no-comp {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.urgent {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.high-priority {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+
+.medium-priority {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.low-priority {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.icon-type-count {
+  display: flex;
+}
+.menu-add {
+  color: #71757b;
+  display: flex;
+}
+.icon {
+  color: #71757b;
+  margin-top: 2px;
+}
+.title-comp {
+  margin-left: 10px;
+}
+.count {
+  color: #71757b;
+  margin-left: 10px;
+}
+.menu {
+  margin-left: 10px;
+  margin-top: 2px;
+}
+.cards {
+  margin-top: 15px;
+  width: 15vw;
+}
+.urgent .icon-type-count .icon {
+  color: #f1ca4b;
+  font-weight: 700;
+}

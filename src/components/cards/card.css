@@ -1,0 +1,73 @@
+.card {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  color: #71757b;
+  padding-left: 2%;
+  padding-right: 2%;
+  position: relative;
+  height: fit-content;
+}
+.id {
+  font-size: 10px;
+  margin-top: 5px;
+}
+.title {
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 7px;
+  color: #34363b;
+  display: flex;
+}
+.dot {
+  margin-right: 5px;
+}
+.available {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(216, 217, 218, 255);
+  border-radius: 5px;
+  width: fit-content;
+  padding-bottom: 2px;
+  height: 20px;
+}
+.not-available {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(216, 217, 218, 255);
+  border-radius: 5px;
+  padding-bottom: 2px;
+  width: fit-content;
+  height: 20px;
+}
+.footer {
+  display: flex;
+}
+.tags {
+  margin: 10px 10px;
+  font-size: 8px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(216, 217, 218, 255);
+  border-radius: 5px;
+  padding-bottom: 2px;
+  padding-right: 5px;
+  width: fit-content;
+}
+.dot {
+  display: flex;
+}
+.tag {
+  margin-top: 6px;
+  color: #6b6f76;
+}
+.profile-pic img {
+  width: 2vw;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}

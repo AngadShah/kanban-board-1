@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.container {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.back-log-comp {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.todo {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.in-progress {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.in-progress .icon-type-count .icon {
+  color: #f1ca4b;
+  font-weight: 700;
+}
+.done .icon-type-count .icon {
+  color: #5e6ad2;
+}
+.done {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.canceled {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
+}
+.icon-type-count {
+  display: flex;
+}
+.menu-add {
+  color: #71757b;
+  display: flex;
+}
+.icon {
+  color: #71757b;
+  margin-top: 2px;
+}
+.title-comp {
+  margin-left: 10px;
+}
+.count {
+  color: #71757b;
+  margin-left: 10px;
+}
+.menu {
+  margin-left: 10px;
+  margin-top: 2px;
+}
+.cards {
+  margin-top: 15px;
+  width: 15vw;
+}

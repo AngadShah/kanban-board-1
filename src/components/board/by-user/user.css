@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.users {
+  width: 12vw;
+}
+.user-section {
+  display: flex;
+  justify-content: space-between;
+}
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+.user-name {
+  margin-top: 5px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.count-user-ticket {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.users-card {
+  margin-top: 15px;
+}
