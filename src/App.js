@@ -10,7 +10,7 @@ function App() {
   const dropdownRef = useRef(null);
   const [userData, setUserData] = useState(() => {
     const savedUserData = JSON.parse(localStorage.getItem("userData"));
-    return savedUserData || null;
+    return savedUserData !== null ? savedUserData : userData;
   });
 
   const [isDataFetched, setIsDataFetched] = useState(false);
