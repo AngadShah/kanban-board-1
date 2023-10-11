@@ -18,21 +18,6 @@ function App() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  useEffect(() => {
-    const savedUserData = JSON.parse(localStorage.getItem("userData"));
-    if (savedUserData !== null) {
-      setUserData(savedUserData);
-    }
-    const savedOrdering = localStorage.getItem("ordering");
-    const savedView = localStorage.getItem("view");
-    if (savedOrdering !== null) {
-      setOrdering(savedOrdering);
-    }
-    if (savedView !== null) {
-      setView(savedView);
-    }
-  }, []);
-
   const handleOutsideClick = (event) => {
     if (
       isDropdownOpen &&
@@ -69,7 +54,20 @@ function App() {
     };
 
     if (!isDataFetched) {
-      fetchData();
+      fetchData().then(() => {
+        const savedUserData = JSON.parse(localStorage.getItem("userData"));
+        if (savedUserData !== null) {
+          setUserData(savedUserData);
+        }
+        const savedOrdering = localStorage.getItem("ordering");
+        const savedView = localStorage.getItem("view");
+        if (savedOrdering !== null) {
+          setOrdering(savedOrdering);
+        }
+        if (savedView !== null) {
+          setView(savedView);
+        }
+      });
     }
   }, [isDataFetched]);
 
