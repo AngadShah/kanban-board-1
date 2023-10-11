@@ -78,9 +78,9 @@ function App() {
       let sortedUsers = [...userData.tickets];
 
       if (ordering === "priority") {
-        sortedUsers = sortBasedOnPriority(sortedUsers);
+        sortedUsers.sort((a, b) => a.priority - b.priority);
       } else if (ordering === "title") {
-        sortedUsers = sortBasedOnTitle(sortedUsers);
+        sortedUsers.sort((a, b) => a.title.localeCompare(b.title));
       }
 
       setUserData((prevUserData) => ({
@@ -89,14 +89,6 @@ function App() {
       }));
     }
   }, [ordering]);
-
-  function sortBasedOnTitle(users) {
-    return users.slice().sort((a, b) => a.title.localeCompare(b.title));
-  }
-
-  function sortBasedOnPriority(users) {
-    return users.slice().sort((a, b) => a.priority - b.priority);
-  }
 
   const handleChangeGroup = (e) => {
     setView(e.target.value);
@@ -117,8 +109,8 @@ function App() {
   }
 
   useEffect(() => {
-    localStorage.setItem("ordering", ordering.toString());
-    localStorage.setItem("view", view.toString());
+    localStorage.setItem("ordering", ordering);
+    localStorage.setItem("view", view);
     localStorage.setItem("userData", JSON.stringify(userData));
   }, [ordering, view, userData]);
 
