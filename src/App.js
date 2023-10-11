@@ -8,7 +8,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function App() {
   const dropdownRef = useRef(null);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(() => {
+    const savedUserData = JSON.parse(localStorage.getItem("userData"));
+    return savedUserData || null;
+  });
+
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [view, setView] = useState("status");
@@ -17,6 +21,21 @@ function App() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    const savedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (savedUserData !== null) {
+      setUserData(savedUserData);
+    }
+    const savedOrdering = localStorage.getItem("ordering");
+    const savedView = localStorage.getItem("view");
+    if (savedOrdering !== null) {
+      setOrdering(savedOrdering);
+    }
+    if (savedView !== null) {
+      setView(savedView);
+    }
+  }, []);
 
   const handleOutsideClick = (event) => {
     if (
@@ -54,20 +73,7 @@ function App() {
     };
 
     if (!isDataFetched) {
-      fetchData().then(() => {
-        const savedUserData = JSON.parse(localStorage.getItem("userData"));
-        if (savedUserData !== null) {
-          setUserData(savedUserData);
-        }
-        const savedOrdering = localStorage.getItem("ordering");
-        const savedView = localStorage.getItem("view");
-        if (savedOrdering !== null) {
-          setOrdering(savedOrdering);
-        }
-        if (savedView !== null) {
-          setView(savedView);
-        }
-      });
+      fetchData().then(() => {});
     }
   }, [isDataFetched]);
 
