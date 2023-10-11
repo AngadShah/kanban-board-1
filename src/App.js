@@ -17,10 +17,20 @@ function App() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [view, setView] = useState("status");
   const [ordering, setOrdering] = useState("priority");
+  const [localStorageDataLoaded, setLocalStorageDataLoaded] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    // Load userData from localStorage
+    const savedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (savedUserData !== null) {
+      setUserData(savedUserData);
+      setLocalStorageDataLoaded(true); // Mark as loaded
+    }
+  }, []);
 
   useEffect(() => {
     const savedUserData = JSON.parse(localStorage.getItem("userData"));
@@ -56,26 +66,26 @@ function App() {
   }, [isDropdownOpen]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://api.quicksell.co/v1/internal/frontend-assignment"
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    // Fetch new data only if localStorage data is loaded
+    if (!isDataFetched && localStorageDataLoaded) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "https://api.quicksell.co/v1/internal/frontend-assignment"
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const json = await response.json();
+          setUserData(json);
+          setIsDataFetched(true);
+        } catch (error) {
+          console.error(error);
         }
-        const json = await response.json();
-        setUserData(json);
-        setIsDataFetched(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (!isDataFetched) {
-      fetchData().then(() => {});
+      };
+      fetchData();
     }
-  }, [isDataFetched]);
+  }, [isDataFetched, localStorageDataLoaded]);
 
   useEffect(() => {
     if (userData != null) {
