@@ -71,3 +71,11 @@
   display: flex;
   justify-content: space-between;
 }
+@media only screen and (max-width: 699px) {
+  .id {
+    font-size: small;
+  }
+  .title {
+    font-size: small;
+  }
+}

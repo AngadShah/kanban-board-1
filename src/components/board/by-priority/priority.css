@@ -15,18 +15,18 @@
   width: 15vw;
   justify-content: space-between;
 }
-.high-priority {
+.high {
   display: flex;
   width: 15vw;
   justify-content: space-between;
 }
 
-.medium-priority {
+.medium {
   display: flex;
   width: 15vw;
   justify-content: space-between;
 }
-.low-priority {
+.low {
   display: flex;
   width: 15vw;
   justify-content: space-between;
@@ -60,4 +60,36 @@
 .urgent .icon-type-count .icon {
   color: #f1ca4b;
   font-weight: 700;
+}
+
+@media only screen and (max-width: 699px) {
+  .container {
+    flex-direction: column;
+    font-size: large;
+    margin-right: 10%;
+  }
+  .no-comp {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .high {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .low {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .medium {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .urgent {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .cards {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }

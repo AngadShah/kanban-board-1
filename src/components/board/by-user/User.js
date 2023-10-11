@@ -42,7 +42,7 @@ export const User = (props) => {
                   <div className="user-name">{ele.name}</div>
                   <div className="count-user-ticket">{countUser(ele.id)}</div>
                 </div>
-                <div className="menu-add">
+                <div className="menu-add-1">
                   <div className="add">+</div>
                   <div className="menu">
                     <MoreHorizIcon fontSize="smaller" />

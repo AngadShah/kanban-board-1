@@ -14,7 +14,7 @@
   margin-right: 5%;
 }
 
-.back-log-comp {
+.backlog {
   display: flex;
   width: 15vw;
   justify-content: space-between;
@@ -71,4 +71,22 @@
 .cards {
   margin-top: 15px;
   width: 15vw;
+}
+
+@media only screen and (max-width: 699px) {
+  .backlog {
+    width: 100%;
+  }
+  .todo {
+    width: 100%;
+  }
+  .in-progress {
+    width: 100%;
+  }
+  .done {
+    width: 100%;
+  }
+  .canceled {
+    width: 100%;
+  }
 }

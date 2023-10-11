@@ -11,11 +11,27 @@ function App() {
   const [userData, setUserData] = useState(null);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [view, setView] = useState(0);
-  const [ordering, setOrdering] = useState(0);
+  const [view, setView] = useState("status");
+  const [ordering, setOrdering] = useState("priority");
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    const savedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (savedUserData !== null) {
+      setUserData(savedUserData);
+    }
+    const savedOrdering = localStorage.getItem("ordering");
+    const savedView = localStorage.getItem("view");
+    if (savedOrdering !== null) {
+      setOrdering(savedOrdering);
+    }
+    if (savedView !== null) {
+      setView(savedView);
+    }
+  }, []);
 
   const handleOutsideClick = (event) => {
     if (
@@ -27,7 +43,6 @@ function App() {
       setIsDropdownOpen(false);
     }
   };
-
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
 
@@ -62,9 +77,9 @@ function App() {
     if (userData != null) {
       let sortedUsers = [...userData.tickets];
 
-      if (ordering === 1) {
+      if (ordering === "priority") {
         sortedUsers = sortBasedOnPriority(sortedUsers);
-      } else if (ordering === 0) {
+      } else if (ordering === "title") {
         sortedUsers = sortBasedOnTitle(sortedUsers);
       }
 
@@ -84,50 +99,27 @@ function App() {
   }
 
   const handleChangeGroup = (e) => {
-    if (e.target.value === "status") {
-      setView(0);
-    } else if (e.target.value === "user") {
-      setView(1);
-    } else if (e.target.value === "priority") {
-      setView(2);
-    }
+    setView(e.target.value);
   };
 
   const handleChangeOrder = (e) => {
-    if (e.target.value === "priority") {
-      setOrdering(0);
-    } else if (e.target.value === "title") {
-      setOrdering(1);
-    }
+    setOrdering(e.target.value);
   };
 
   function renderGroupContent() {
-    if (view === 0) {
+    if (view === "status") {
       return <Status userData={userData} />;
-    } else if (view === 1) {
+    } else if (view === "user") {
       return <User userData={userData} />;
     } else {
       return <Priority userData={userData} />;
     }
   }
+
   useEffect(() => {
-    const savedUserData = JSON.parse(sessionStorage.getItem("userData"));
-    if (savedUserData !== null) {
-      setUserData(savedUserData);
-    }
-    const savedOrdering = sessionStorage.getItem("ordering");
-    const savedView = sessionStorage.getItem("view");
-    if (savedOrdering !== null) {
-      setOrdering(parseInt(savedOrdering));
-    }
-    if (savedView !== null) {
-      setView(parseInt(savedView));
-    }
-  }, []);
-  useEffect(() => {
-    sessionStorage.setItem("ordering", ordering.toString());
-    sessionStorage.setItem("view", view.toString());
-    sessionStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("ordering", ordering.toString());
+    localStorage.setItem("view", view.toString());
+    localStorage.setItem("userData", JSON.stringify(userData));
   }, [ordering, view, userData]);
 
   return (
@@ -154,6 +146,7 @@ function App() {
                   name="groupBy"
                   className="select"
                   onChange={(e) => handleChangeGroup(e)}
+                  value={view}
                 >
                   <option value="status">Status</option>
                   <option value="user">User</option>
@@ -168,6 +161,7 @@ function App() {
                   name="groupBy"
                   className="select"
                   onChange={(e) => handleChangeOrder(e)}
+                  value={ordering}
                 >
                   <option value="priority">Priority</option>
                   <option value="title">Title</option>

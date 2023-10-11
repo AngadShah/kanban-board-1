@@ -12,6 +12,7 @@ export const Card = (props) => {
   const [tags, __setTags] = useState(props?.item?.tag);
   const [isDot, __setIsDot] = useState(props?.isdot);
   const [userName, setUserName] = useState(null);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     isUserAvailable();
@@ -21,6 +22,7 @@ export const Card = (props) => {
     userData.forEach((element) => {
       if (ticketData.userId === element.id) {
         setUserName(element.name);
+        setIsActive(element.available);
       }
     });
   };
@@ -33,7 +35,7 @@ export const Card = (props) => {
           <span className="profile-pic">
             {" "}
             {isProfile === true ? (
-              <ProfilePic name={userName} isActive={available} />
+              <ProfilePic name={userName} isActive={isActive} />
             ) : (
               ""
             )}

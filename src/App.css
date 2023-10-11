@@ -81,7 +81,14 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+@media only screen and (max-width: 699px) {
+  .dropbtn {
+    font-size: large;
+  }
+  .select {
+    font-size: small;
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

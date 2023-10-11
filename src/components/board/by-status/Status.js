@@ -7,17 +7,38 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./status.css";
 import { Card } from "../../cards/Card";
+
+const statusData = [
+  {
+    title: "Backlog",
+    icon: <CloudOffIcon fontSize="smaller" />,
+    status: "Backlog",
+  },
+  { title: "Todo", icon: <CircleIcon fontSize="smaller" />, status: "Todo" },
+  {
+    title: "In Progress",
+    icon: <TimelapseIcon fontSize="smaller" />,
+    status: "In progress",
+  },
+  {
+    title: "Done",
+    icon: <CheckCircleIcon fontSize="smaller" />,
+    status: "Done",
+  },
+  {
+    title: "Canceled",
+    icon: <CancelIcon fontSize="smaller" />,
+    status: "Canceled",
+  },
+];
+
 export const Status = (props) => {
   const [userData, setUserData] = useState(null);
   const [ticketData, setTicketData] = useState(null);
-  const [countBackLog, setCountBackLog] = useState(0);
-  const [countTodo, setCountTodo] = useState(0);
-  const [countInProgress, setCountInProgress] = useState(0);
-  const [countDone, setCountDone] = useState(0);
-  const [countCanceled, setCountCanceled] = useState(0);
-  const [ordering, setOrdering] = useState(0);
+  const [statusCounts, setStatusCounts] = useState({});
+
   useEffect(() => {
-    if (props.userData != null) {
+    if (props.userData) {
       setUserData(props.userData.users);
       setTicketData(props.userData.tickets);
       countStatus();
@@ -25,203 +46,65 @@ export const Status = (props) => {
   }, [props]);
 
   function countStatus() {
-    var countBackLog = 0,
-      countTodo = 0,
-      countCanceled = 0,
-      countInProgress = 0,
-      countDone = 0;
-    ticketData?.map((ele) => {
-      if (ele.status === "Backlog") {
-        countBackLog++;
-      }
-      if (ele.status === "Todo") {
-        countTodo++;
-      }
-      if (ele.status === "In progress") {
-        countInProgress++;
-      }
-      if (ele.status === "Done") {
-        countDone++;
-      }
-      if (ele.status === "Canceled") {
-        countCanceled++;
+    const counts = {};
+    ticketData?.forEach((ele) => {
+      if (counts[ele.status]) {
+        counts[ele.status]++;
+      } else {
+        counts[ele.status] = 1;
       }
     });
-    setCountBackLog(countBackLog);
-    setCountCanceled(countCanceled);
-    setCountDone(countDone);
-    setCountInProgress(countInProgress);
-    setCountTodo(countTodo);
+    setStatusCounts(counts);
   }
+
   return (
     <div className="container">
-      <div className="backlog-cards">
-        <div className="back-log-comp">
-          <div className="icon-type-count">
-            <div className="icon">
-              <CloudOffIcon fontSize="smaller" />
+      {statusData.map((statusItem) => (
+        <div
+          className={`${statusItem.status.toLowerCase()}-cards`}
+          key={statusItem.status}
+        >
+          {console.log(statusItem)}
+          <div
+            className={
+              statusItem.status === "In progress"
+                ? "in-progress"
+                : `${statusItem.status.toLowerCase()}`
+            }
+          >
+            <div className="icon-type-count">
+              <div className="icon">{statusItem.icon}</div>
+              <div className="title-comp">{statusItem.title}</div>
+              <div className="count">
+                {statusCounts[statusItem.status] || 0}
+              </div>
             </div>
-            <div className="title-comp">BackLog</div>
-            <div className="count">{countBackLog}</div>
-          </div>
-          <div className="menu-add">
-            <div className="add">+</div>
-            <div className="menu">
-              <MoreHorizIcon fontSize="smaller" />
-            </div>
-          </div>
-        </div>
-        <div className="cards">
-          {ticketData?.map((ele) => (
-            <div>
-              {ele.status === "Backlog" ? (
-                <>
-                  <Card
-                    isavailable={true}
-                    item={ele}
-                    userdata={userData}
-                    isprofile={true}
-                  />{" "}
-                </>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="todo-cards">
-        <div className="todo">
-          <div className="icon-type-count">
-            <div className="icon">
-              <CircleIcon fontSize="smaller" />
-            </div>
-            <div className="title-comp">Todo</div>
-            <div className="count">{countTodo}</div>
-          </div>
-          <div className="menu-add">
-            <div className="add">+</div>
-            <div className="menu">
-              <MoreHorizIcon fontSize="smaller" />
+            <div className="menu-add">
+              <div className="add">+</div>
+              <div className="menu">
+                <MoreHorizIcon fontSize="smaller" />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="cards">
-          {ticketData?.map((ele) => (
-            <div>
-              {ele.status === "Todo" ? (
-                <Card
-                  isavailable={true}
-                  item={ele}
-                  userdata={userData}
-                  isprofile={true}
-                />
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="in-progress-cards">
-        <div className="in-progress">
-          <div className="icon-type-count">
-            <div className="icon">
-              <TimelapseIcon fontSize="smaller" />
-            </div>
-            <div className="title-comp">In Progress</div>
-            <div className="count">{countInProgress}</div>
-          </div>
-          <div className="menu-add">
-            <div className="add">+</div>
-            <div className="menu">
-              <MoreHorizIcon fontSize="smaller" />
-            </div>
+          <div className="cards">
+            {ticketData?.map((ele) => {
+              if (ele.status === statusItem.status) {
+                return (
+                  <div key={ele.id}>
+                    <Card
+                      isavailable={true}
+                      item={ele}
+                      userdata={userData}
+                      isprofile={true}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })}
           </div>
         </div>
-        <div className="cards">
-          {ticketData?.map((ele) => (
-            <div>
-              {ele.status === "In progress" ? (
-                <Card
-                  isavailable={true}
-                  item={ele}
-                  userdata={userData}
-                  isprofile={true}
-                />
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="done-cards">
-        <div className="done">
-          <div className="icon-type-count">
-            <div className="icon">
-              <CheckCircleIcon fontSize="smaller" />
-            </div>
-            <div className="title-comp">Done</div>
-            <div className="count">{countDone}</div>
-          </div>
-          <div className="menu-add">
-            <div className="add">+</div>
-            <div className="menu">
-              <MoreHorizIcon fontSize="smaller" />
-            </div>
-          </div>
-        </div>
-        <div className="cards">
-          {ticketData?.map((ele) => (
-            <div>
-              {ele.status === "Done" ? (
-                <Card
-                  isavailable={true}
-                  item={ele}
-                  userdata={userData}
-                  isprofile={true}
-                />
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="canceled-cards">
-        <div className="canceled">
-          <div className="icon-type-count">
-            <div className="icon">
-              <CancelIcon fontSize="smaller" />
-            </div>
-            <div className="title-comp">Canceled</div>
-            <div className="count">{countCanceled}</div>
-          </div>
-          <div className="menu-add">
-            <div className="add">+</div>
-            <div className="menu">
-              <MoreHorizIcon fontSize="smaller" />
-            </div>
-          </div>
-        </div>
-        <div className="cards">
-          {ticketData?.map((ele) => (
-            <div>
-              {ele.status === "Canceled" ? (
-                <Card
-                  isavailable={true}
-                  item={ele}
-                  userdata={userData}
-                  isprofile={true}
-                />
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

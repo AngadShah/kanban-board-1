@@ -30,3 +30,26 @@
 .users-card {
   margin-top: 15px;
 }
+.menu-add-1 {
+  margin-top: 5px;
+  display: flex;
+}
+
+@media only screen and (max-width: 699px) {
+  .users {
+    width: 100%;
+  }
+  .user-name {
+    font-size: large;
+    margin-left: 10px;
+  }
+  .count-user-ticket {
+    margin-left: 10px;
+  }
+  .user-section {
+    margin-bottom: 10px;
+  }
+  .users-card {
+    margin-bottom: 20px;
+  }
+}
